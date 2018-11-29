@@ -24,4 +24,9 @@
     <color name="user_icon_6">#ff8bc34a</color><!-- light green 500 -->
     <color name="user_icon_7">#ffff9800</color><!-- orange 500 -->
     <color name="user_icon_8">#ffff5722</color><!-- deep orange 500 -->
+
+
+    <color name="btn_1">#ff2a56c6</color><!-- cyan 500 -->
+    <color name="btn_2">#ff1A73E8</color><!-- cyan 500 -->
+    <color name="btn_3">#ff0000ee</color><!-- cyan 500 -->
 </resources>

@@ -18,27 +18,6 @@
         android:textSize="20sp" />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="本地IP: "
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="192.168.1.19"
-            android:textSize="20sp" />
-
-    </LinearLayout>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,16 +25,41 @@
         android:gravity="center"
         android:text="请检查矩阵设置的远程IP是否与本地IP相同，否则请修改"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+        android:textSize="14sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="42dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="本地IP: "
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:background="@drawable/layout_et_bg"
+            android:enabled="false"
+            android:paddingLeft="10dp"
+            android:text="192.168.1.19"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="矩阵IP:"
             android:textColor="@color/black"
@@ -64,34 +68,116 @@
         <EditText
             android:id="@+id/et_ip"
             android:layout_width="150dp"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:background="@drawable/layout_et_bg"
+            android:inputType="number"
+            android:paddingLeft="10dp"
             android:text="192.168.1.18" />
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:text="端口:"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <EditText
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:background="@drawable/layout_et_bg"
+            android:enabled="false"
+            android:paddingLeft="10dp"
             android:text="8806"
             android:textSize="20sp" />
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn_test"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1-5" />
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="输入："
+            android:textColor="@color/black"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/btn_test1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="3-5" />
+        <EditText
+            android:id="@+id/et_in"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:background="@drawable/layout_et_bg"
+            android:hint="01"
+            android:inputType="number"
+            android:maxLength="2"
+            android:paddingLeft="10dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:text="输出："
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/et_out"
+            android:layout_width="150dp"
+            android:layout_height="35dp"
+            android:background="@drawable/layout_et_bg"
+            android:hint="07"
+            android:inputType="number"
+            android:maxLength="2"
+            android:paddingLeft="10dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_dan"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/btn_bg"
+            android:text="单切"
+            android:textColor="@color/white" />
+
+
+        <Button
+            android:id="@+id/btn_quan"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_bg"
+            android:text="全切"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
 </LinearLayout>

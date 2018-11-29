@@ -2,6 +2,7 @@ package com.lh.lhjuzhen.ui;
 
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.lh.lhjuzhen.R;
 import com.lh.lhjuzhen.utils.ELog;
@@ -23,6 +24,11 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.et_ip)
     EditText et_ip;
+    @BindView(R.id.et_in)
+    EditText et_in;
+    @BindView(R.id.et_out)
+    EditText et_out;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,30 +38,30 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick(R.id.btn_test)
-    public void btn_test() {
-        String message = "BB040002" + "01" + "05" + "0055";
-        byte[] data = StringToBytes(message);
-        ClientSendMsg(data);
-
+    @OnClick(R.id.btn_dan)
+    public void btn_dan() {
+        if (!et_in.getText().toString().trim().isEmpty() && !et_out.getText().toString().trim().isEmpty()) {
+            byte[] data = DataToBytes(et_in.getText().toString(), et_out.getText().toString());
+            ClientSendMsg(data);
+        } else {
+            Toast.makeText(this, "请输入切换口", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    @OnClick(R.id.btn_test1)
-    public void btn_test1() {
-        String message = "BB040002" + "03" + "05" + "0055";
-        byte[] data = StringToBytes(message);
+    @OnClick(R.id.btn_quan)
+    public void btn_quan() {
+        byte[] data = DataToBytes("01", "02");
         ClientSendMsg(data);
-
     }
 
-    private byte[] StringToBytes(String str) {
-        byte[] bytes = new byte[str.length() / 2];
-        for (int i = 0; i < str.length(); i = i + 2) {
-            bytes[i / 2] = (byte) Integer.parseInt(str.substring(i, i + 2), 16);
+    private byte[] DataToBytes(String strIn, String strOut) {
+        String strCommand = "BB040002" + strIn + strOut + "0055";
+        byte[] bytes = new byte[strCommand.length() / 2];
+        for (int i = 0; i < strCommand.length(); i = i + 2) {
+            bytes[i / 2] = (byte) Integer.parseInt(strCommand.substring(i, i + 2), 16);
         }
         return bytes;
     }
-
 
     private void ClientSendMsg(final byte[] bytesend) {
         final Timer timer = new Timer();
@@ -86,6 +92,9 @@ public class MainActivity extends BaseActivity {
                 } finally {
                     if (datagramSocket != null) {
                         datagramSocket.close();
+                    }
+                    if (timer != null) {
+                        timer.cancel();
                     }
                 }
 
