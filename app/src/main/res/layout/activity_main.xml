@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/user_icon_1"
+        android:background="@color/user_icon_2"
         android:gravity="center"
         android:text="矩阵控制"
         android:textColor="@color/white"
@@ -41,12 +41,13 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/host_ip"
             android:layout_width="150dp"
             android:layout_height="35dp"
             android:background="@drawable/layout_et_bg"
             android:enabled="false"
             android:paddingLeft="10dp"
-            android:text="192.168.1.19"
+            android:text=""
             android:textSize="20sp" />
 
     </LinearLayout>
@@ -111,7 +112,7 @@
         <TextView
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:text="输入："
+            android:text="输入:"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -120,7 +121,7 @@
             android:layout_width="150dp"
             android:layout_height="35dp"
             android:background="@drawable/layout_et_bg"
-            android:hint="01"
+            android:hint="1 ~ 8"
             android:inputType="number"
             android:maxLength="2"
             android:paddingLeft="10dp" />
@@ -138,7 +139,7 @@
         <TextView
             android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:text="输出："
+            android:text="输出:"
             android:textColor="@color/black"
             android:textSize="20sp" />
 
@@ -147,7 +148,7 @@
             android:layout_width="150dp"
             android:layout_height="35dp"
             android:background="@drawable/layout_et_bg"
-            android:hint="07"
+            android:hint="1 ~ 8"
             android:inputType="number"
             android:maxLength="2"
             android:paddingLeft="10dp" />
@@ -161,13 +162,15 @@
         android:gravity="center"
         android:orientation="horizontal">
 
+
         <Button
             android:id="@+id/btn_dan"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:background="@drawable/btn_bg"
             android:text="单切"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
 
         <Button
@@ -177,7 +180,8 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/btn_bg"
             android:text="全切"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
     </LinearLayout>
 

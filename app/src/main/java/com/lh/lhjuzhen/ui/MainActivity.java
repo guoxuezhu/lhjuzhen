@@ -5,6 +5,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.lh.lhjuzhen.R;
+import com.lh.lhjuzhen.utils.DisplayTools;
 import com.lh.lhjuzhen.utils.ELog;
 
 import java.io.IOException;
@@ -22,6 +23,8 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
 
+    @BindView(R.id.host_ip)
+    EditText host_ip;
     @BindView(R.id.et_ip)
     EditText et_ip;
     @BindView(R.id.et_in)
@@ -36,6 +39,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        host_ip.setText(DisplayTools.getIPAddress(this));
     }
 
     @OnClick(R.id.btn_dan)
@@ -48,7 +52,22 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(this, "请输入输出口", Toast.LENGTH_SHORT).show();
             return;
         }
-        String strCommand = "BB040002" + et_in.getText().toString().trim() + et_out.getText().toString().trim() + "0055";
+
+        String strCommand = "";
+        if (et_in.getText().toString().trim().length() == 1) {
+            if (et_out.getText().toString().trim().length() == 1) {
+                strCommand = "BB040002" + "0" + et_in.getText().toString().trim() + "0" + et_out.getText().toString().trim() + "0055";
+            } else {
+                strCommand = "BB040002" + "0" + et_in.getText().toString().trim() + et_out.getText().toString().trim() + "0055";
+            }
+        } else {
+            if (et_out.getText().toString().trim().length() == 1) {
+                strCommand = "BB040002" + et_in.getText().toString().trim() + "0" + et_out.getText().toString().trim() + "0055";
+            } else {
+                strCommand = "BB040002" + et_in.getText().toString().trim() + et_out.getText().toString().trim() + "0055";
+            }
+        }
+
         byte[] data = DataToBytes(strCommand);
         ClientSendMsg(data);
     }
@@ -60,7 +79,13 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(this, "请输入输入口", Toast.LENGTH_SHORT).show();
             return;
         }
-        String strCommand = "BB030009" + et_in.getText().toString().trim() + "00" + "0055";
+
+        String strCommand = "";
+        if (et_in.getText().toString().trim().length() == 1) {
+            strCommand = "BB030009" + "0" + et_in.getText().toString().trim() + "00" + "0055";
+        } else {
+            strCommand = "BB030009" + et_in.getText().toString().trim() + "00" + "0055";
+        }
         byte[] data = DataToBytes(strCommand);
         ClientSendMsg(data);
     }
