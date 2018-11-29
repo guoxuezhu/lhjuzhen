@@ -21,6 +21,7 @@ public class SplashActivity extends BaseActivity {
             @Override
             public void run() {
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                finish();
                 timer.cancel();
             }
         }, 1500);

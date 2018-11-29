@@ -40,25 +40,35 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.btn_dan)
     public void btn_dan() {
-        if (!et_in.getText().toString().trim().isEmpty() && !et_out.getText().toString().trim().isEmpty()) {
-            byte[] data = DataToBytes(et_in.getText().toString(), et_out.getText().toString());
-            ClientSendMsg(data);
-        } else {
-            Toast.makeText(this, "请输入切换口", Toast.LENGTH_SHORT).show();
+        if (et_in.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入输入口", Toast.LENGTH_SHORT).show();
+            return;
         }
-    }
-
-    @OnClick(R.id.btn_quan)
-    public void btn_quan() {
-        byte[] data = DataToBytes("01", "02");
+        if (et_out.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入输出口", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String strCommand = "BB040002" + et_in.getText().toString().trim() + et_out.getText().toString().trim() + "0055";
+        byte[] data = DataToBytes(strCommand);
         ClientSendMsg(data);
     }
 
-    private byte[] DataToBytes(String strIn, String strOut) {
-        String strCommand = "BB040002" + strIn + strOut + "0055";
-        byte[] bytes = new byte[strCommand.length() / 2];
-        for (int i = 0; i < strCommand.length(); i = i + 2) {
-            bytes[i / 2] = (byte) Integer.parseInt(strCommand.substring(i, i + 2), 16);
+
+    @OnClick(R.id.btn_quan)
+    public void btn_quan() {
+        if (et_in.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入输入口", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String strCommand = "BB030009" + et_in.getText().toString().trim() + "00" + "0055";
+        byte[] data = DataToBytes(strCommand);
+        ClientSendMsg(data);
+    }
+
+    private byte[] DataToBytes(String strdata) {
+        byte[] bytes = new byte[strdata.length() / 2];
+        for (int i = 0; i < strdata.length(); i = i + 2) {
+            bytes[i / 2] = (byte) Integer.parseInt(strdata.substring(i, i + 2), 16);
         }
         return bytes;
     }
