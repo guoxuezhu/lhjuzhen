@@ -167,7 +167,7 @@
             android:id="@+id/btn_dan"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:background="@drawable/btn_bg"
+            android:background="@drawable/btn_style"
             android:text="单切"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -178,7 +178,7 @@
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_bg"
+            android:background="@drawable/btn_style"
             android:text="全切"
             android:textColor="@color/white"
             android:textSize="18sp" />

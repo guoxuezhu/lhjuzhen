@@ -9,7 +9,7 @@
     <gradient
         android:angle="270"
         android:startColor="@color/btn_1"
-        android:centerColor="@color/btn_2"
+        android:centerColor="@color/btn_4"
         android:endColor="@color/btn_3">
     </gradient>
 
