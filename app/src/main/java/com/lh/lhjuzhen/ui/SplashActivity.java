@@ -24,6 +24,6 @@ public class SplashActivity extends BaseActivity {
                 finish();
                 timer.cancel();
             }
-        }, 1500);
+        }, 1);
     }
 }
