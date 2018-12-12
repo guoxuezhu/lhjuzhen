@@ -187,6 +187,13 @@ public class SplashActivity extends BaseActivity {
 
     }
 
+
+
+    @OnClick(R.id.btn_back)
+    public void btn_back() {
+        finish();
+    }
+
     @Override
     public void onBackPressed() {
         finish();
