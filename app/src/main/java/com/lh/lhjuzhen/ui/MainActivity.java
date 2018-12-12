@@ -35,6 +35,8 @@ public class MainActivity extends BaseActivity {
     EditText et_out;
     @BindView(R.id.et_mode)
     EditText et_mode;
+    @BindView(R.id.et_in2)
+    EditText et_in2;
 
     @BindView(R.id.rbtn_av)
     RadioButton rbtn_av;      //音视频
@@ -99,7 +101,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.btn_quan)
     public void btn_quan() {
-        if (et_in.getText().toString().trim().isEmpty()) {
+        if (et_in2.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "请输入输入口", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -114,10 +116,10 @@ public class MainActivity extends BaseActivity {
         }
 
         String strCommand = "";
-        if (et_in.getText().toString().trim().length() == 1) {
-            strCommand = "BB0300" + type + "0" + et_in.getText().toString().trim() + "00" + "0055";
+        if (et_in2.getText().toString().trim().length() == 1) {
+            strCommand = "BB0300" + type + "0" + et_in2.getText().toString().trim() + "00" + "0055";
         } else {
-            strCommand = "BB0300" + type + et_in.getText().toString().trim() + "00" + "0055";
+            strCommand = "BB0300" + type + et_in2.getText().toString().trim() + "00" + "0055";
         }
         byte[] data = DataToBytes(strCommand);
         ClientSendMsg(data);
@@ -161,7 +163,7 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.btn_close)
     public void btn_close() {
-        if (et_in.getText().toString().trim().isEmpty()) {
+        if (et_in2.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "请输入输入口", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -176,10 +178,10 @@ public class MainActivity extends BaseActivity {
         }
 
         String strCommand = "";
-        if (et_in.getText().toString().trim().length() == 1) {
-            strCommand = "BB0300" + type + "0" + et_in.getText().toString().trim() + "00" + "0055";
+        if (et_in2.getText().toString().trim().length() == 1) {
+            strCommand = "BB0300" + type + "0" + et_in2.getText().toString().trim() + "00" + "0055";
         } else {
-            strCommand = "BB0300" + type + et_in.getText().toString().trim() + "00" + "0055";
+            strCommand = "BB0300" + type + et_in2.getText().toString().trim() + "00" + "0055";
         }
         byte[] data = DataToBytes(strCommand);
         ClientSendMsg(data);
