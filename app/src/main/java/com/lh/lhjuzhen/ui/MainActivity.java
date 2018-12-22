@@ -211,6 +211,12 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.btn_rtsp)
+    public void btn_rtsp() {
+        Intent intent = new Intent(this, AddVideoActivity.class);
+        startActivity(intent);
+    }
+
     private byte[] DataToBytes(String strdata) {
         byte[] bytes = new byte[strdata.length() / 2];
         for (int i = 0; i < strdata.length(); i = i + 2) {

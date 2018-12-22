@@ -335,6 +335,15 @@
                     android:textColor="@color/white"
                     android:textSize="18sp" />
 
+                <Button
+                    android:id="@+id/btn_rtsp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/btn_style"
+                    android:text="视频播放"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
