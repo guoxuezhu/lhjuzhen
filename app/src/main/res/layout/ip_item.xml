@@ -1,52 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/main_bg"
-    android:orientation="vertical"
-    tools:context=".ui.AddVideoActivity">
+    android:layout_height="51dp"
+    android:orientation="vertical">
 
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/user_icon_2">
-
-
-        <ImageView
-            android:id="@+id/btn_back_add"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:src="@mipmap/back_btn" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="设备"
-            android:textColor="@color/white"
-            android:textSize="24sp" />
-
-        <ImageView
-            android:id="@+id/add_btn"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            app:srcCompat="@android:drawable/ic_input_add" />
-
-    </RelativeLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -58,11 +15,12 @@
             android:background="@color/white" />
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="名称"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -72,11 +30,12 @@
             android:background="@color/white" />
 
         <TextView
+            android:id="@+id/tv_out_name"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="输出口"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -86,11 +45,12 @@
             android:background="@color/white" />
 
         <TextView
+            android:id="@+id/tv_strIp"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="IP"
+            android:text=""
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -106,11 +66,4 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/white" />
-
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/ip_recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
 </LinearLayout>
