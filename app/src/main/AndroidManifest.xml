@@ -35,7 +35,8 @@
         <activity
             android:name=".ui.SplashActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.AddVideoActivity"></activity>
+        <activity android:name=".ui.AddVideoActivity" />
+        <activity android:name=".ui.VideoActivity"></activity>
     </application>
 
 </manifest>

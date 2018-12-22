@@ -1,5 +1,6 @@
 package com.lh.lhjuzhen.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -69,7 +70,9 @@ public class AddVideoActivity extends BaseActivity implements AddIpDialog.Dialog
 
     @Override
     public void onClickItem(VideoIP item) {
-
+        Intent intent = new Intent(this, VideoActivity.class);
+        intent.putExtra("strIp", item.strIp);
+        startActivity(intent);
     }
 
 

@@ -23,21 +23,20 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:gravity="center"
         android:orientation="horizontal">
 
 
         <TextView
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:text="名称:"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
         <EditText
             android:id="@+id/et_name"
-            android:layout_width="170dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/layout_table_bg"
             android:gravity="center_vertical"
@@ -54,21 +53,20 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:gravity="center"
         android:orientation="horizontal">
 
 
         <TextView
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:text="输出口:"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
         <EditText
             android:id="@+id/out_name"
-            android:layout_width="170dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/layout_table_bg"
             android:gravity="center_vertical"
@@ -87,28 +85,27 @@
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
-        android:gravity="center"
         android:orientation="horizontal">
 
 
         <TextView
             android:layout_width="80dp"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center_vertical"
             android:text="IP:"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
         <EditText
             android:id="@+id/et_ip_add"
-            android:layout_width="170dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/layout_table_bg"
             android:digits="0123456789."
             android:gravity="center_vertical"
             android:inputType="number"
             android:paddingLeft="10dp"
-            android:text="192.168.1.18"
+            android:text="192.168.1.90"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
