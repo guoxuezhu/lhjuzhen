@@ -11,6 +11,7 @@ import org.videolan.vlc.listener.MediaListenerEvent;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class VideoActivity extends BaseActivity implements MediaListenerEvent {
 
@@ -95,12 +96,24 @@ public class VideoActivity extends BaseActivity implements MediaListenerEvent {
         stopDialog();
     }
 
+    @OnClick(R.id.btn_back_video)
+    public void btn_back_video() {
+        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         if (progressDialog != null) {
             progressDialog.dismiss();
         }
+        videoView.onDestory();
     }
 
     private void stopDialog() {
