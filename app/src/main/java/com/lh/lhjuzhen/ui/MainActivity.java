@@ -2,6 +2,7 @@ package com.lh.lhjuzhen.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -9,6 +10,9 @@ import android.widget.Toast;
 import com.lh.lhjuzhen.R;
 import com.lh.lhjuzhen.utils.DisplayTools;
 import com.lh.lhjuzhen.utils.ELog;
+
+import org.videolan.vlc.VlcVideoView;
+import org.videolan.vlc.listener.MediaListenerEvent;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -23,7 +27,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements MediaListenerEvent {
 
     @BindView(R.id.host_ip)
     EditText host_ip;
@@ -35,6 +39,11 @@ public class MainActivity extends BaseActivity {
     EditText et_out;
     @BindView(R.id.et_mode)
     EditText et_mode;
+
+    @BindView(R.id.et_video_ip)
+    EditText et_video_ip;
+    @BindView(R.id.vlc_video_view)
+    VlcVideoView vlc_video_view;
 
     @BindView(R.id.rbtn_av)
     RadioButton rbtn_av;      //音视频
@@ -55,6 +64,60 @@ public class MainActivity extends BaseActivity {
         rbtn_v_vga.setChecked(true);
         rbtn_audio.setChecked(false);
     }
+
+
+    @Override
+    public void eventPlayInit(boolean openClose) {
+        ELog.i("=======eventPlayInit============" + openClose);
+        if (openClose) {
+            ELog.i("=======1111111==========");
+        }
+    }
+
+    @Override
+    public void eventBuffing(int event, float buffing) {
+        ELog.i("=======eventBuffing============" + event + "=====buffing====" + buffing);
+
+    }
+
+    @Override
+    public void eventPlay(boolean isPlaying) {
+        ELog.i("=======eventPlay============" + isPlaying);
+        if (!isPlaying) {
+
+        }
+    }
+
+    @Override
+    public void eventStop(boolean isPlayError) {
+        ELog.i("=======eventStop============" + isPlayError);
+    }
+
+    @Override
+    public void eventError(int event, boolean show) {
+        ELog.i("=======eventError============" + event + "=====show=====" + show);
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        vlc_video_view.pause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        vlc_video_view.startPlay();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("lh", "=======onStop============");
+        vlc_video_view.onStop();
+    }
+
 
     @OnClick(R.id.btn_dan)
     public void btn_dan() {
@@ -213,8 +276,15 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.btn_rtsp)
     public void btn_rtsp() {
-        Intent intent = new Intent(this, AddVideoActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, AddVideoActivity.class);
+//        startActivity(intent);
+        if (et_video_ip.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入输出口IP", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        vlc_video_view.setMediaListenerEvent(this);
+        vlc_video_view.setPath("rtsp://" + et_video_ip.getText().toString().trim() + "/c=0&s=0");
+        vlc_video_view.startPlay();
     }
 
     private byte[] DataToBytes(String strdata) {
@@ -276,5 +346,6 @@ public class MainActivity extends BaseActivity {
         if (timer != null) {
             timer.cancel();
         }
+        vlc_video_view.onDestory();
     }
 }
