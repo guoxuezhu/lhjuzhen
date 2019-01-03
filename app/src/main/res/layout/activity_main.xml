@@ -27,12 +27,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/black"
             android:orientation="vertical">
 
             <org.videolan.vlc.VlcVideoView
                 android:id="@+id/vlc_video_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:background="@color/black" />
         </LinearLayout>
 
         <LinearLayout
@@ -45,7 +47,16 @@
                 android:layout_height="wrap_content"
                 android:background="@color/user_icon_4"
                 android:gravity="center"
-                android:text="请检查矩阵设置的远程IP是否与本地IP相同，否则请修改"
+                android:text="请检查矩阵设置的远程IP是否与本地IP相同"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/user_icon_4"
+                android:gravity="center"
+                android:text="否则请修改"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
@@ -179,6 +190,7 @@
                             android:background="@drawable/layout_et_bg"
                             android:hint="请输入输入口"
                             android:inputType="number"
+                            android:text="1"
                             android:maxLength="2"
                             android:paddingLeft="10dp" />
 
@@ -207,7 +219,8 @@
                             android:hint="请输入输出口"
                             android:inputType="number"
                             android:maxLength="2"
-                            android:paddingLeft="10dp" />
+                            android:paddingLeft="10dp"
+                            android:text="1" />
 
 
                     </LinearLayout>

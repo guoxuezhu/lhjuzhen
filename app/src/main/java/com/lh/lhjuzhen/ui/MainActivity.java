@@ -1,8 +1,10 @@
 package com.lh.lhjuzhen.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -52,6 +54,7 @@ public class MainActivity extends BaseActivity implements MediaListenerEvent {
     @BindView(R.id.rbtn_audio)
     RadioButton rbtn_audio;   //音频
     private Timer timer;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,13 +73,17 @@ public class MainActivity extends BaseActivity implements MediaListenerEvent {
     public void eventPlayInit(boolean openClose) {
         ELog.i("=======eventPlayInit============" + openClose);
         if (openClose) {
-            ELog.i("=======1111111==========");
+            showDialog();
         }
     }
 
     @Override
     public void eventBuffing(int event, float buffing) {
         ELog.i("=======eventBuffing============" + event + "=====buffing====" + buffing);
+        if (buffing == 100.0) {
+            vlc_video_view.setVisibility(View.VISIBLE);
+            stopDialog();
+        }
 
     }
 
@@ -84,7 +91,7 @@ public class MainActivity extends BaseActivity implements MediaListenerEvent {
     public void eventPlay(boolean isPlaying) {
         ELog.i("=======eventPlay============" + isPlaying);
         if (!isPlaying) {
-
+            stopDialog();
         }
     }
 
@@ -96,6 +103,9 @@ public class MainActivity extends BaseActivity implements MediaListenerEvent {
     @Override
     public void eventError(int event, boolean show) {
         ELog.i("=======eventError============" + event + "=====show=====" + show);
+        vlc_video_view.setVisibility(View.GONE);
+        Toast.makeText(this, "视频输出停止，或者无输出", Toast.LENGTH_SHORT).show();
+        stopDialog();
     }
 
 
@@ -116,6 +126,36 @@ public class MainActivity extends BaseActivity implements MediaListenerEvent {
         super.onStop();
         Log.i("lh", "=======onStop============");
         vlc_video_view.onStop();
+    }
+
+    private void startVlcVideo() {
+        if (et_out.getText().toString().trim().equals("1")) {
+            if (progressDialog == null) {
+                progressDialog = new ProgressDialog(this);
+            }
+            vlc_video_view.setMediaListenerEvent(this);
+            vlc_video_view.setPath("rtsp://" + et_video_ip.getText().toString().trim() + "/c=0&s=0");
+            vlc_video_view.startPlay();
+        }
+//        if (et_video_ip.getText().toString().trim().isEmpty()) {
+//            Toast.makeText(this, "请输入输出口IP", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+
+    }
+
+    private void stopDialog() {
+        if (progressDialog != null) {
+            progressDialog.hide();
+        }
+    }
+
+    private void showDialog() {
+        if (progressDialog != null) {
+            progressDialog.show();
+            progressDialog.setMessage("正在解码中");
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
     }
 
 
@@ -157,6 +197,7 @@ public class MainActivity extends BaseActivity implements MediaListenerEvent {
 
         byte[] data = DataToBytes(strCommand);
         ClientSendMsg(data);
+        startVlcVideo();
     }
 
 
@@ -276,16 +317,10 @@ public class MainActivity extends BaseActivity implements MediaListenerEvent {
 
     @OnClick(R.id.btn_rtsp)
     public void btn_rtsp() {
-//        Intent intent = new Intent(this, AddVideoActivity.class);
-//        startActivity(intent);
-        if (et_video_ip.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "请输入输出口IP", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        vlc_video_view.setMediaListenerEvent(this);
-        vlc_video_view.setPath("rtsp://" + et_video_ip.getText().toString().trim() + "/c=0&s=0");
-        vlc_video_view.startPlay();
+        Intent intent = new Intent(this, AddVideoActivity.class);
+        startActivity(intent);
     }
+
 
     private byte[] DataToBytes(String strdata) {
         byte[] bytes = new byte[strdata.length() / 2];
