@@ -129,14 +129,14 @@ public class MainActivity extends BaseActivity implements MediaListenerEvent {
     }
 
     private void startVlcVideo() {
-        if (et_out.getText().toString().trim().equals("1")) {
-            if (progressDialog == null) {
-                progressDialog = new ProgressDialog(this);
-            }
-            vlc_video_view.setMediaListenerEvent(this);
-            vlc_video_view.setPath("rtsp://" + et_video_ip.getText().toString().trim() + "/c=0&s=0");
-            vlc_video_view.startPlay();
+//        if (et_out.getText().toString().trim().equals("5")) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
         }
+        vlc_video_view.setMediaListenerEvent(this);
+        vlc_video_view.setPath("rtsp://" + et_video_ip.getText().toString().trim() + "/c=0&s=0");
+        vlc_video_view.startPlay();
+//        }
 //        if (et_video_ip.getText().toString().trim().isEmpty()) {
 //            Toast.makeText(this, "请输入输出口IP", Toast.LENGTH_SHORT).show();
 //            return;
@@ -153,7 +153,7 @@ public class MainActivity extends BaseActivity implements MediaListenerEvent {
     private void showDialog() {
         if (progressDialog != null) {
             progressDialog.show();
-            progressDialog.setMessage("正在解码中");
+            progressDialog.setMessage("视频正在解码中");
             progressDialog.setCanceledOnTouchOutside(false);
         }
     }
@@ -197,7 +197,6 @@ public class MainActivity extends BaseActivity implements MediaListenerEvent {
 
         byte[] data = DataToBytes(strCommand);
         ClientSendMsg(data);
-        startVlcVideo();
     }
 
 
@@ -317,8 +316,9 @@ public class MainActivity extends BaseActivity implements MediaListenerEvent {
 
     @OnClick(R.id.btn_rtsp)
     public void btn_rtsp() {
-        Intent intent = new Intent(this, AddVideoActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, AddVideoActivity.class);
+//        startActivity(intent);
+        startVlcVideo();
     }
 
 

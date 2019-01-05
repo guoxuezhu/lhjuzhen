@@ -190,7 +190,6 @@
                             android:background="@drawable/layout_et_bg"
                             android:hint="请输入输入口"
                             android:inputType="number"
-                            android:text="1"
                             android:maxLength="2"
                             android:paddingLeft="10dp" />
 
@@ -219,8 +218,7 @@
                             android:hint="请输入输出口"
                             android:inputType="number"
                             android:maxLength="2"
-                            android:paddingLeft="10dp"
-                            android:text="1" />
+                            android:paddingLeft="10dp" />
 
 
                     </LinearLayout>

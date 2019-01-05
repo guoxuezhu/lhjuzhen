@@ -125,6 +125,8 @@ public class VideoActivity extends BaseActivity implements MediaListenerEvent {
     private void showDialog() {
         if (progressDialog != null) {
             progressDialog.show();
+            progressDialog.setMessage("视频正在解码中");
+            progressDialog.setCanceledOnTouchOutside(false);
         }
     }
 }
