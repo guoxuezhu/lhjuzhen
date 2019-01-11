@@ -35,7 +35,9 @@
         <activity
             android:name=".ui.SplashActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".ui.FixIpActivity"></activity>
+        <activity
+            android:name=".ui.FixIpActivity"
+            android:windowSoftInputMode="stateHidden"></activity>
     </application>
 
 </manifest>
