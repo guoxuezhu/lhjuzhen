@@ -1,5 +1,6 @@
 package com.lh.lhjuzhen.ui;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -39,6 +40,7 @@ public class FixIpActivity extends BaseActivity {
     private DatagramSocket cUdpSocket;
     private byte[] bsMAC;
     private boolean isRun = false;
+    private ProgressDialog progressDialog;
 
     Handler ipHandler = new Handler() {
         @Override
@@ -58,6 +60,9 @@ public class FixIpActivity extends BaseActivity {
                     et_jz_ym.setText(msg.obj.toString());
                     break;
                 case 5:
+                    if (progressDialog != null) {
+                        progressDialog.hide();
+                    }
                     break;
             }
         }
@@ -77,11 +82,20 @@ public class FixIpActivity extends BaseActivity {
         } catch (SocketException e) {
             e.printStackTrace();
         }
+
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+        }
     }
 
 
     @OnClick(R.id.btn_search)
     public void btn_search() {
+        if (progressDialog != null) {
+            progressDialog.show();
+            progressDialog.setMessage("扫描中......");
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
         byte[] msg = new byte[1];
         ClientSend(msg);
     }
@@ -91,6 +105,11 @@ public class FixIpActivity extends BaseActivity {
         if (bsMAC == null && et_jz_ip.getText().toString().isEmpty()) {
             Toast.makeText(this, "请先扫描到矩阵IP", Toast.LENGTH_SHORT).show();
             return;
+        }
+        if (progressDialog != null) {
+            progressDialog.show();
+            progressDialog.setMessage("读取配置中......");
+            progressDialog.setCanceledOnTouchOutside(false);
         }
         byte[] msgbyte = new byte[11];
         System.arraycopy(bsMAC, 0, msgbyte, 0, 6);
@@ -106,6 +125,11 @@ public class FixIpActivity extends BaseActivity {
 
     @OnClick(R.id.btn_fixsave)
     public void btn_fixsave() {
+        if (progressDialog != null) {
+            progressDialog.show();
+            progressDialog.setMessage("配置中......");
+            progressDialog.setCanceledOnTouchOutside(false);
+        }
         // 配置 初始化....
         byte[] msgbyte1 = new byte[11];
         System.arraycopy(bsMAC, 0, msgbyte1, 0, 6);
@@ -223,6 +247,7 @@ public class FixIpActivity extends BaseActivity {
                         msg.obj = datagramPacket.getAddress().toString().substring(1);
                         msg.what = 1;
                         ipHandler.sendMessage(msg);
+                        ipHandler.sendEmptyMessage(5);
                     }
 
                     if (datagramPacket.getLength() == 256) {
@@ -240,7 +265,6 @@ public class FixIpActivity extends BaseActivity {
                         msg1.obj = jzIpStr;
                         msg1.what = 1;
                         ipHandler.sendMessage(msg1);
-
 
                         String ycIpStr = Integer.parseInt(Integer.toHexString(buf[44] & 0xFF), 16) + "."
                                 + Integer.parseInt(Integer.toHexString(buf[45] & 0xFF), 16) + "."
@@ -267,26 +291,20 @@ public class FixIpActivity extends BaseActivity {
                                 + Integer.parseInt(Integer.toHexString(buf[54] & 0xFF), 16) + "."
                                 + Integer.parseInt(Integer.toHexString(buf[55] & 0xFF), 16);
 
-
                         Message msg4 = new Message();
                         msg4.obj = ymIpStr;
                         msg4.what = 4;
                         ipHandler.sendMessage(msg4);
-
+                        ipHandler.sendEmptyMessage(5);
                     }
 
-
-                    String ret = "";
-                    for (int j = 0; j < datagramPacket.getLength(); j++) {
-                        String hex = Integer.toHexString(buf[j] & 0xFF);
-                        if (hex.length() == 1) {
-                            hex = "0" + hex;
+                    if (datagramPacket.getLength() == 4) {
+                        // len=4   FF 结束
+                        if (Integer.toHexString(buf[0] & 0xFF).equals("ff")) {
+                            ipHandler.sendEmptyMessage(5);
                         }
-//                        ELog.d("===接收到数据====" + hex + "=====www====" + j);
-                        ret += hex.toUpperCase();
+                        ELog.d("=======接收到消息==========="+Integer.toHexString(buf[0] & 0xFF));
                     }
-                    ELog.d("===接收到数据====" + datagramPacket.getLength() + "====" + datagramPacket.getPort() + "=====" + datagramPacket.getAddress());
-                    ELog.d("===接收到数据====" + ret);
 
                 }
 
@@ -319,6 +337,9 @@ public class FixIpActivity extends BaseActivity {
         }
         if (timer2 != null) {
             timer2.cancel();
+        }
+        if (progressDialog != null) {
+            progressDialog.dismiss();
         }
     }
 }
