@@ -217,6 +217,11 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.fp_jz)
+    public void fp_jz() {
+        Intent intent = new Intent(this, PingjieActivity.class);
+        startActivity(intent);
+    }
 
     private byte[] DataToBytes(String strdata) {
         byte[] bytes = new byte[strdata.length() / 2];
