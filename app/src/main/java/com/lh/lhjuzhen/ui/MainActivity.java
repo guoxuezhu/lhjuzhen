@@ -8,16 +8,7 @@ import android.widget.Toast;
 
 import com.lh.lhjuzhen.R;
 import com.lh.lhjuzhen.utils.DisplayTools;
-import com.lh.lhjuzhen.utils.ELog;
-
-import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetSocketAddress;
-import java.net.SocketException;
-import java.net.UnknownHostException;
-import java.util.Timer;
-import java.util.TimerTask;
+import com.lh.lhjuzhen.utils.UdpUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +33,6 @@ public class MainActivity extends BaseActivity {
     RadioButton rbtn_v_vga;   //视频
     @BindView(R.id.rbtn_audio)
     RadioButton rbtn_audio;   //音频
-    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +48,10 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.btn_dan)
     public void btn_dan() {
+        if (et_ip.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入矩阵IP", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if (et_in.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "请输入输入口", Toast.LENGTH_SHORT).show();
             return;
@@ -76,24 +70,35 @@ public class MainActivity extends BaseActivity {
             type = "03";
         }
 
-
-        String strCommand = "";
-        if (et_in.getText().toString().trim().length() == 1) {
-            if (et_out.getText().toString().trim().length() == 1) {
-                strCommand = "BB0400" + type + "0" + et_in.getText().toString().trim() + "0" + et_out.getText().toString().trim() + "0055";
-            } else {
-                strCommand = "BB0400" + type + "0" + et_in.getText().toString().trim() + et_out.getText().toString().trim() + "0055";
-            }
-        } else {
-            if (et_out.getText().toString().trim().length() == 1) {
-                strCommand = "BB0400" + type + et_in.getText().toString().trim() + "0" + et_out.getText().toString().trim() + "0055";
-            } else {
-                strCommand = "BB0400" + type + et_in.getText().toString().trim() + et_out.getText().toString().trim() + "0055";
-            }
+        String hex_in = Integer.toHexString(Integer.parseInt(et_in.getText().toString().trim()));
+        if (hex_in.length() == 1) {
+            hex_in = "0" + hex_in;
         }
 
-        byte[] data = DataToBytes(strCommand);
-        ClientSendMsg(data);
+        String hex_out = Integer.toHexString(Integer.parseInt(et_out.getText().toString().trim()));
+        if (hex_out.length() == 1) {
+            hex_out = "0" + hex_out;
+        }
+//        String strCommand = "BB0400" + type + hex_in + hex_out + "0055";
+//        if (et_in.getText().toString().trim().length() == 1) {
+//            if (et_out.getText().toString().trim().length() == 1) {
+//                strCommand = "BB0400" + type + "0" + et_in.getText().toString().trim() + "0" + et_out.getText().toString().trim() + "0055";
+//            } else {
+//                strCommand = "BB0400" + type + "0" + et_in.getText().toString().trim() + et_out.getText().toString().trim() + "0055";
+//            }
+//        } else {
+//            if (et_out.getText().toString().trim().length() == 1) {
+//                strCommand = "BB0400" + type + et_in.getText().toString().trim() + "0" + et_out.getText().toString().trim() + "0055";
+//            } else {
+//                strCommand = "BB0400" + type + et_in.getText().toString().trim() + et_out.getText().toString().trim() + "0055";
+//            }
+//        }
+//
+//        byte[] data = DataToBytes(strCommand);
+//        ClientSendMsg(data);
+
+        byte[] data = UdpUtils.DataToBytes("BB0400" + type + hex_in + hex_out + "0055");
+        UdpUtils.ClientSendMsg(et_ip.getText().toString(), data);
     }
 
 
@@ -103,7 +108,10 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(this, "请输入输入口", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        if (et_ip.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入矩阵IP", Toast.LENGTH_SHORT).show();
+            return;
+        }
         String type = "";
         if (rbtn_av.isChecked()) {
             type = "07";
@@ -113,14 +121,21 @@ public class MainActivity extends BaseActivity {
             type = "0A";
         }
 
-        String strCommand = "";
-        if (et_in.getText().toString().trim().length() == 1) {
-            strCommand = "BB0300" + type + "0" + et_in.getText().toString().trim() + "00" + "0055";
-        } else {
-            strCommand = "BB0300" + type + et_in.getText().toString().trim() + "00" + "0055";
+        String hex_in = Integer.toHexString(Integer.parseInt(et_in.getText().toString().trim()));
+        if (hex_in.length() == 1) {
+            hex_in = "0" + hex_in;
         }
-        byte[] data = DataToBytes(strCommand);
-        ClientSendMsg(data);
+//
+//        String strCommand = "";
+//        if (et_in.getText().toString().trim().length() == 1) {
+//            strCommand = "BB0300" + type + "0" + et_in.getText().toString().trim() + "00" + "0055";
+//        } else {
+//            strCommand = "BB0300" + type + et_in.getText().toString().trim() + "00" + "0055";
+//        }
+//        byte[] data = DataToBytes(strCommand);
+//        ClientSendMsg(data);
+        byte[] data = UdpUtils.DataToBytes("BB0300" + type + hex_in + "000055");
+        UdpUtils.ClientSendMsg(et_ip.getText().toString(), data);
     }
 
 
@@ -130,15 +145,26 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(this, "请输入模式号", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        String strCommand = "";
-        if (et_mode.getText().toString().trim().length() == 1) {
-            strCommand = "BB030004" + "0" + et_mode.getText().toString().trim() + "00" + "0055";
-        } else {
-            strCommand = "BB030004" + et_mode.getText().toString().trim() + "00" + "0055";
+        if (et_ip.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入矩阵IP", Toast.LENGTH_SHORT).show();
+            return;
         }
-        byte[] data = DataToBytes(strCommand);
-        ClientSendMsg(data);
+//
+//        String strCommand = "";
+//        if (et_mode.getText().toString().trim().length() == 1) {
+//            strCommand = "BB030004" + "0" + et_mode.getText().toString().trim() + "00" + "0055";
+//        } else {
+//            strCommand = "BB030004" + et_mode.getText().toString().trim() + "00" + "0055";
+//        }
+//        byte[] data = DataToBytes(strCommand);
+//        ClientSendMsg(data);
+//
+        String hex_mode = Integer.toHexString(Integer.parseInt(et_mode.getText().toString().trim()));
+        if (hex_mode.length() == 1) {
+            hex_mode = "0" + hex_mode;
+        }
+        byte[] data = UdpUtils.DataToBytes("BB030004" + hex_mode + "000055");
+        UdpUtils.ClientSendMsg(et_ip.getText().toString(), data);
     }
 
     @OnClick(R.id.btn_save)
@@ -147,15 +173,25 @@ public class MainActivity extends BaseActivity {
             Toast.makeText(this, "请输入模式号", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        String strCommand = "";
-        if (et_mode.getText().toString().trim().length() == 1) {
-            strCommand = "BB030006" + "0" + et_mode.getText().toString().trim() + "00" + "0055";
-        } else {
-            strCommand = "BB030006" + et_mode.getText().toString().trim() + "00" + "0055";
+        if (et_ip.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入矩阵IP", Toast.LENGTH_SHORT).show();
+            return;
         }
-        byte[] data = DataToBytes(strCommand);
-        ClientSendMsg(data);
+        String hex_mode = Integer.toHexString(Integer.parseInt(et_mode.getText().toString().trim()));
+        if (hex_mode.length() == 1) {
+            hex_mode = "0" + hex_mode;
+        }
+        byte[] data = UdpUtils.DataToBytes("BB030006" + hex_mode + "000055");
+        UdpUtils.ClientSendMsg(et_ip.getText().toString(), data);
+
+//        String strCommand = "";
+//        if (et_mode.getText().toString().trim().length() == 1) {
+//            strCommand = "BB030006" + "0" + et_mode.getText().toString().trim() + "00" + "0055";
+//        } else {
+//            strCommand = "BB030006" + et_mode.getText().toString().trim() + "00" + "0055";
+//        }
+//        byte[] data = DataToBytes(strCommand);
+//        ClientSendMsg(data);
     }
 
 
@@ -175,28 +211,53 @@ public class MainActivity extends BaseActivity {
             type = "0C";
         }
 
-        String strCommand = "";
-        if (et_in.getText().toString().trim().length() == 1) {
-            strCommand = "BB0300" + type + "0" + et_in.getText().toString().trim() + "00" + "0055";
-        } else {
-            strCommand = "BB0300" + type + et_in.getText().toString().trim() + "00" + "0055";
+        if (et_ip.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入矩阵IP", Toast.LENGTH_SHORT).show();
+            return;
         }
-        byte[] data = DataToBytes(strCommand);
-        ClientSendMsg(data);
+        String hex_in = Integer.toHexString(Integer.parseInt(et_in.getText().toString().trim()));
+        if (hex_in.length() == 1) {
+            hex_in = "0" + hex_in;
+        }
+        byte[] data = UdpUtils.DataToBytes("BB0300" + type + hex_in + "000055");
+        UdpUtils.ClientSendMsg(et_ip.getText().toString(), data);
+
+//        String strCommand = "";
+//        if (et_in.getText().toString().trim().length() == 1) {
+//            strCommand = "BB0300" + type + "0" + et_in.getText().toString().trim() + "00" + "0055";
+//        } else {
+//            strCommand = "BB0300" + type + et_in.getText().toString().trim() + "00" + "0055";
+//        }
+//        byte[] data = DataToBytes(strCommand);
+//        ClientSendMsg(data);
     }
 
     @OnClick(R.id.btn_buzzer)
     public void btn_buzzer() {
-        String strCommand = "BB02000F00000055";
-        byte[] data = DataToBytes(strCommand);
-        ClientSendMsg(data);
+        if (et_ip.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入矩阵IP", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        byte[] data = UdpUtils.DataToBytes("BB02000F00000055");
+        UdpUtils.ClientSendMsg(et_ip.getText().toString(), data);
+//
+//        String strCommand = "BB02000F00000055";
+//        byte[] data = DataToBytes(strCommand);
+//        ClientSendMsg(data);
     }
 
     @OnClick(R.id.btn_lock)
     public void btn_lock() {
-        String strCommand = "BB02001000000055";
-        byte[] data = DataToBytes(strCommand);
-        ClientSendMsg(data);
+        if (et_ip.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入矩阵IP", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        byte[] data = UdpUtils.DataToBytes("BB02001000000055");
+        UdpUtils.ClientSendMsg(et_ip.getText().toString(), data);
+
+//        String strCommand = "BB02001000000055";
+//        byte[] data = DataToBytes(strCommand);
+//        ClientSendMsg(data);
     }
 
 
@@ -228,64 +289,8 @@ public class MainActivity extends BaseActivity {
         startActivity(intent);
     }
 
-    private byte[] DataToBytes(String strdata) {
-        byte[] bytes = new byte[strdata.length() / 2];
-        for (int i = 0; i < strdata.length(); i = i + 2) {
-            bytes[i / 2] = (byte) Integer.parseInt(strdata.substring(i, i + 2), 16);
-        }
-        return bytes;
-    }
-
-    private void ClientSendMsg(final byte[] bytesend) {
-        if (et_ip.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "请输入矩阵IP", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                DatagramSocket datagramSocket = null;
-                try {
-                    ELog.d("=======0000000===========");
-                    datagramSocket = new DatagramSocket();
-                    DatagramPacket dp = new DatagramPacket(bytesend, bytesend.length);
-                    dp.setSocketAddress(new InetSocketAddress(et_ip.getText().toString(), 8806));
-                    datagramSocket.send(dp);//发送一条信息
-                    ELog.d("=======4444444===========");
-                } catch (UnknownHostException e) {
-                    e.printStackTrace();
-                    ELog.d("=======UnknownHostException===========");
-                } catch (SocketException e) {
-                    e.printStackTrace();
-                    ELog.d("=======SocketException===========");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    ELog.d("=======IOException===========");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ELog.d("=======Exception===========");
-                } finally {
-                    if (datagramSocket != null) {
-                        datagramSocket.close();
-                    }
-                    if (timer != null) {
-                        timer.cancel();
-                    }
-                }
-
-            }
-        }, 1);
-
-    }
-
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (timer != null) {
-            timer.cancel();
-        }
     }
 }
