@@ -219,7 +219,12 @@ public class MainActivity extends BaseActivity {
 
     @OnClick(R.id.fp_jz)
     public void fp_jz() {
+        if (et_ip.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "请输入矩阵IP", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Intent intent = new Intent(this, PingjieActivity.class);
+        intent.putExtra("jzip", et_ip.getText().toString().trim());
         startActivity(intent);
     }
 

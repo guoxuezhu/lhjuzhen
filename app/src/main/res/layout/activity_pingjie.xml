@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ui.PingjieActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/user_icon_2">
-
 
         <ImageView
             android:id="@+id/btn_pj_back"
@@ -29,4 +29,241 @@
             android:textSize="24sp" />
 
     </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="水平方向:"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/et_x"
+                    android:layout_width="50dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/layout_et_bg"
+                    android:digits="1234"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:paddingLeft="10dp"
+                    android:text="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="垂直方向:"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/et_y"
+                    android:layout_width="50dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/layout_et_bg"
+                    android:digits="1234"
+                    android:inputType="number"
+                    android:maxLength="1"
+                    android:paddingLeft="10dp"
+                    android:text="1" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="屏幕"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:background="@drawable/layout_et_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="@dimen/dp_10">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_ping_1"
+                        style="@style/Edit_Text_1"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_2"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_3"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_4"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_ping_5"
+                        style="@style/Edit_Text_1"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_6"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_7"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_8"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_ping_9"
+                        style="@style/Edit_Text_1"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_10"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_11"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_12"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_ping_13"
+                        style="@style/Edit_Text_1"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_14"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_15"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                    <EditText
+                        android:id="@+id/et_ping_16"
+                        style="@style/Edit_Text_1"
+                        android:layout_marginLeft="@dimen/et_marginLeft"
+                        android:text="1" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+
+                <Button
+                    android:id="@+id/btn_set_pj"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:background="@drawable/btn_style"
+                    android:text="设置"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+
+                <Button
+                    android:id="@+id/btn_pj_hy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/btn_style"
+                    android:text="还原"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
 </LinearLayout>
